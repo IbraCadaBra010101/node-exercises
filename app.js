@@ -3,7 +3,7 @@
 // på konsolen. Använd funktionen readFile.
 // require the filesystem module
 //
-const fs = require('fs');
+// const fs = require('fs');
 // const readOptions = {
 //     encoding: 'utf8'
 // };
@@ -38,38 +38,47 @@ const fs = require('fs');
 // textfil och skriver ut det på konsolen. Men den
 // ska läsa filen som en ström.
 
-const readOptions = {encoding: 'utf8'};
-const exercises = './ovningar.txt';
-
-const streamReader = fs.createReadStream(exercises, readOptions);
-
-streamReader.on('data', (chunk) => {
-    console.log(chunk);
-});
-streamReader.on('end', () => {
-    console.log('Streaming finished')
-});
-
-// 3 Skriv ett program som tar emot input från användaren och skriver ut det på konsolen, fast med bara stora bokstäver.
-
-// const fs = require('fs');
-// const http = require('http');
-// const express = require('express');
-// const app = express();
-// const path = require('path');
+// const readOptions = {encoding: 'utf8'};
+// const exercises = './ovningar.txt';
 //
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/index.html'));
+// const streamReader = fs.createReadStream(exercises, readOptions);
+//
+// streamReader.on('data', (chunk) => {
+//     console.log(chunk);
+// });
+// streamReader.on('end', () => {
+//     console.log('Streaming finished')
+// });
+
+// 3 Skriv ett program som tar emot input från användaren
+// och skriver ut det på konsolen, fast med bara stora bokstäver.
+// let stdin = process.openStdin();
+//
+// stdin.on('data', data  => {
+//     let input = data.toString().toUpperCase();
+//     if(input){
+//         console.log(input)
+//     } else{
+//         console.log('error')
+//     }
+// });
+
+
+// let stdin = process.openStdin();
+//
+// stdin.on('data', data => {
+//     let input = data.toString().trim();
+//     console.log(`Data från standard input: "${input}"`);
+//     if( input === 'hello, how are you?' ) {
+//         console.log("I'm fine thanks");
+//     }
 // });
 //
-// app.post('/', (req, res) => {
-//     const body = [];
-//     return req.on('data', chunk => {
-//         body.push(chunk.toString().split('=')[1]);
-//         console.log(body);
-//     });
-// });
-// app.listen(3000 || process.env.port);
+// console.log('Välkommen!');
+// console.log('1. Alternativ 1');
+// console.log('2. Alternativ 2');
+
+
 // 4 Vad är skillnaden mellan import/export och require?
 // I princip samma funktionalitet för att kunna importera och
 // exportera moduler.
@@ -104,6 +113,7 @@ streamReader.on('end', () => {
 // Programmet ska startas med main.js.
 // När man startar det så ska programmet hämta data från data.js
 // och skriva ut den. Använd require och module.exports.
+
 /***main.js
  * data.js
  * */
@@ -113,72 +123,60 @@ streamReader.on('end', () => {
 // 6 Skriv ett program som frågar användaren efter ett filnamn.
 //Om filen finns så ska innehållet skrivas ut,
 //annars ska programmet säga att filen inte existerar och avslutas. Utan felmeddelanden!
-
+//
 // const port = 3000;
-// const fs = require('fs');
 // const express = require('express');
+// const fs = require('fs');
 // const app = express();
 // const path = require('path');
+// const index = '/index.html';
+// const readOptions = {
+//     encoding: 'utf8'
+// };
 //
 // app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/index.html'))
+//     res.sendFile(path.join(__dirname + index))
 // });
 // app.post('/', (req, res) => {
-//     const fileName = [];
-//     req.on('data', chunk => {
-//         fileName.push(chunk.toString().split('=')[1]);
-//         res.sendFile(path.join(__dirname + '/' + fileName[0]));
-//         // console.log(path.join(__dirname + '/' + fileName[0]));
-//     });
-//     // res.sendFile()
-//  });
-// app.get('/showfile', () => {
+//     let filePath = '';
 //
-// });
+//         req.on('data', chunk => {
+//             filePath += chunk.toString().slice(8);
+//             res.sendFile(path.join(__dirname + '/' + filePath));
+//         });
+//     });
+//
+//
 // app.listen(port || process.env.port);
 
+// 6 Skriv ett program som frågar användaren
+// efter ett filnamn. Om filen finns så ska innehållet
+// skrivas ut, annars ska programmet säga att filen inte
+// existerar och avslutas. Utan felmeddelanden! Tips: använd
+// flaggor till readFile och ett try/catch-block.
 
-// 7* Skapa en texteditor! Allt eftersom användaren skriver så ska det sparas i en textfil.
-
-// const port = 3000;
+// let stdin = process.openStdin();
 // const fs = require('fs');
-// const express = require('express');
-// const app = express();
-// const path = require('path');
-// const writeStream = fs.createWriteStream('essay.txt');
 //
-// var fs = require('fs');
-// var wstream = fs.createWriteStream('myOutput.txt');
-// wstream.write('Hello world!\n');
-// wstream.write('Another line\n');
-// wstream.end();
-
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname + '/index.html'));
-//     writeStream.write('Hello');
-// });
-// app.post('/', (req, res) => {
-//     // const text = [];
-//     req.on('data', chunk => {
-//         console.log(chunk);
-//     });
+// stdin.on('data', (input) => {
+//     console.log(`${input}`, 'input');
+//     try {
+//         let data = fs.readFileSync('./index.html', 'utf8');
+//         console.log(data);
+//     } catch (e) {
+//         console.log('Error:', e);
+//     }
 // });
 
-// app.post('/', (req, res) => {
-//     const fileName = [];
-//     req.on('data', chunk => {
-//         fileName.push(chunk.toString().split('=')[1]);
-//         res.sendFile(path.join(__dirname + '/' + fileName[0]));
-//         // console.log(path.join(__dirname + '/' + fileName[0]));
-//     });
-//     // res.sendFile()
-//  });
+let fs = require('fs');
+let stdin = process.openStdin();
+stdin.on('data', input => {
+    let file = input.toString().trim();
 
-
-// app.listen(port);
-
-
-
-
-
-
+    fs.readFile(file, 'utf-8', (err, data) => {
+        if (err) throw 'No such file';
+        else {
+            console.log(data.toString())
+        }
+    });
+});
