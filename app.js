@@ -19,12 +19,12 @@ const fs = require('fs');
 // 1b Skriv ett program som sparar texten
 // "filhantering visar hur vi använder strömmar i Node" i en fil.
 // Använd writeFile.
-const saveThisText = `filhantering visar hur vi använder strömmar i Node`;
-const exercisesFile = `./ovningar.txt`;
-const writeOptions = {
-    flag: 'a',
-    encoding: 'utf8'
-};
+// const saveThisText = `filhantering visar hur vi använder strömmar i Node`;
+// const exercisesFile = `./ovningar.txt`;
+// const writeOptions = {
+//     flag: 'a',
+//     encoding: 'utf8'
+// };
 // fs.writeFile(exercisesFile, saveThisText, writeOptions
 //     ,
 //     (err) => {
@@ -34,11 +34,21 @@ const writeOptions = {
 //             console.log('text was save to file ovningar.txt');
 //         }
 //     });
-// 2 Skriv ett program som läser in innehållet i en textfil och skriver ut det på konsolen. Men den ska läsa filen som en ström.
-// const readStream = fs.createReadStream('./ovningar.txt');
-// readStream.on('data', (chunk) => {
-//     console.log(chunk.toString());
-// });
+// 2. Skriv ett program som läser in innehållet i en
+// textfil och skriver ut det på konsolen. Men den
+// ska läsa filen som en ström.
+
+const readOptions = {encoding: 'utf8'};
+const exercises = './ovningar.txt';
+
+const streamReader = fs.createReadStream(exercises, readOptions);
+
+streamReader.on('data', (chunk) => {
+    console.log(chunk);
+});
+streamReader.on('end', () => {
+    console.log('Streaming finished')
+});
 
 // 3 Skriv ett program som tar emot input från användaren och skriver ut det på konsolen, fast med bara stora bokstäver.
 
