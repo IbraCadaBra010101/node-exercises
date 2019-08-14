@@ -1,22 +1,39 @@
-// 1a Skriv ett program som läser in en textfil och skriver ut innehållet på konsolen. Använd funktionen readFile.
+// 1a Skriv ett program som läser in
+// en textfil och skriver ut innehållet
+// på konsolen. Använd funktionen readFile.
 // require the filesystem module
 //
-// fs.readFile('ovningar.txt', (error, data) => {
+const fs = require('fs');
+// const readOptions = {
+//     encoding: 'utf8'
+// };
+// fs.readFile('./essay.txt', readOptions, (error, data) => {
 //     if (error) {
 //         console.log(error)
 //     } else {
-//         console.log(data.toString(), 'some data');
+//         console.log(data, 'some data');
 //     }
 // });
 
-// 1b Skriv ett program som sparar texten "filhantering visar hur vi använder strömmar i Node" i en fil. Använd writeFile.
 
-// fs.writeFile('./ovningar.txt','>>>>>>>filhantering visar hur vi använder strömmar i Node>>>>>>>', (err) => {
-//     if(err){
-//         return console.log(err);
-//     }
-//     console.log('text was save to file ovningar.txt');
-// });
+// 1b Skriv ett program som sparar texten
+// "filhantering visar hur vi använder strömmar i Node" i en fil.
+// Använd writeFile.
+const saveThisText = `filhantering visar hur vi använder strömmar i Node`;
+const exercisesFile = `./ovningar.txt`;
+const writeOptions = {
+    flag: 'a',
+    encoding: 'utf8'
+};
+// fs.writeFile(exercisesFile, saveThisText, writeOptions
+//     ,
+//     (err) => {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log('text was save to file ovningar.txt');
+//         }
+//     });
 // 2 Skriv ett program som läser in innehållet i en textfil och skriver ut det på konsolen. Men den ska läsa filen som en ström.
 // const readStream = fs.createReadStream('./ovningar.txt');
 // readStream.on('data', (chunk) => {
@@ -73,29 +90,85 @@
 //     }
 // }
 
+// 5 Skriv ett program som består av main.js och data.js.
+// Programmet ska startas med main.js.
+// När man startar det så ska programmet hämta data från data.js
+// och skriva ut den. Använd require och module.exports.
+/***main.js
+ * data.js
+ * */
+//
+
+
 // 6 Skriv ett program som frågar användaren efter ett filnamn.
 //Om filen finns så ska innehållet skrivas ut,
 //annars ska programmet säga att filen inte existerar och avslutas. Utan felmeddelanden!
 
-const port = 3000;
-const fs = require('fs');
-const express = require('express');
-const app = express();
-const path = require('path');
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'))
-});
-app.post('/', (req, res) => {
-    const fileName = [];
-    req.on('data', chunk => {
-        fileName.push(chunk.toString().split('=')[1]);
-        res.sendFile(path.join(__dirname + '/' + fileName[0]));
-        // console.log(path.join(__dirname + '/' + fileName[0]));
-    });
-    // res.sendFile()
- });
+// const port = 3000;
+// const fs = require('fs');
+// const express = require('express');
+// const app = express();
+// const path = require('path');
+//
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname + '/index.html'))
+// });
+// app.post('/', (req, res) => {
+//     const fileName = [];
+//     req.on('data', chunk => {
+//         fileName.push(chunk.toString().split('=')[1]);
+//         res.sendFile(path.join(__dirname + '/' + fileName[0]));
+//         // console.log(path.join(__dirname + '/' + fileName[0]));
+//     });
+//     // res.sendFile()
+//  });
 // app.get('/showfile', () => {
 //
 // });
-app.listen(port || process.env.port);
+// app.listen(port || process.env.port);
+
+
+// 7* Skapa en texteditor! Allt eftersom användaren skriver så ska det sparas i en textfil.
+
+// const port = 3000;
+// const fs = require('fs');
+// const express = require('express');
+// const app = express();
+// const path = require('path');
+// const writeStream = fs.createWriteStream('essay.txt');
+//
+// var fs = require('fs');
+// var wstream = fs.createWriteStream('myOutput.txt');
+// wstream.write('Hello world!\n');
+// wstream.write('Another line\n');
+// wstream.end();
+
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname + '/index.html'));
+//     writeStream.write('Hello');
+// });
+// app.post('/', (req, res) => {
+//     // const text = [];
+//     req.on('data', chunk => {
+//         console.log(chunk);
+//     });
+// });
+
+// app.post('/', (req, res) => {
+//     const fileName = [];
+//     req.on('data', chunk => {
+//         fileName.push(chunk.toString().split('=')[1]);
+//         res.sendFile(path.join(__dirname + '/' + fileName[0]));
+//         // console.log(path.join(__dirname + '/' + fileName[0]));
+//     });
+//     // res.sendFile()
+//  });
+
+
+// app.listen(port);
+
+
+
+
+
+
