@@ -168,15 +168,52 @@
 //     }
 // });
 
-let fs = require('fs');
-let stdin = process.openStdin();
-stdin.on('data', input => {
-    let file = input.toString().trim();
+// let fs = require('fs');
+// let stdin = process.openStdin();
+// stdin.on('data', input => {
+//     let file = input.toString().trim();
+//
+//     fs.readFile(file, 'utf-8', (err, data) => {
+//         if (err) throw 'No such file';
+//         else {
+//             console.log(data.toString())
+//         }
+//     });
+// });
+//7* Skapa en texteditor!
+// Allt eftersom användaren
+// skriver så ska det sparas i en textfil.
 
-    fs.readFile(file, 'utf-8', (err, data) => {
-        if (err) throw 'No such file';
-        else {
-            console.log(data.toString())
+let stdin = process.openStdin();
+const fs = require('fs');
+
+stdin.on('data', (input) => {
+     let text = input.toString().trim() + '\n';
+    fs.appendFile('text.txt', text, (error) => {
+        if (error) throw error;
+        else{
+            console.log('Saved: ' + text)
         }
-    });
+    })
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
