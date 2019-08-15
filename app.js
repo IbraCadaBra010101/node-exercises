@@ -214,37 +214,54 @@
 // på hur lång tid det tar att skapa filen.
 // Komplettera med en funktion
 // som läser igenom en fil och skriver ut på konsolen hur lång tid det tog.
-
 //
 
-const lettersCon =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-const lettersVoc = ['a', 'e', 'i', 'u', 'y', 'o',];
-const randomWords = () => {
-    let wordLength = Math.floor(Math.random() * 2 + 1);
-    const words = [];
-        for (let i = 0; i <= wordLength; i++) {
-            let randomNumLettersCon = Math.floor(Math.random() * lettersCon.length);
-            let randomNumLettersVoc = Math.floor(Math.random() * lettersVoc.length);
-            words.push(lettersCon[randomNumLettersCon]);
-            words.push(lettersVoc[randomNumLettersVoc]);
-        }
-       return  words.join('') + ' ';
-};
-let stdin = process.openStdin();
+// const lettersCon = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+//     "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// const lettersVoc = ['a', 'e', 'i', 'u', 'y', 'o',];
+// const randomWords = () => {
+//     let wordLength = Math.floor(Math.random() * 2 + 1);
+//     const words = [];
+//     for (let i = 0; i <= wordLength; i++) {
+//         let randomNumLettersCon = Math.floor(Math.random() * lettersCon.length);
+//         let randomNumLettersVoc = Math.floor(Math.random() * lettersVoc.length);
+//         words.push(lettersCon[randomNumLettersCon]);
+//         words.push(lettersVoc[randomNumLettersVoc]);
+//     }
+//     return words.join('') + ' ';
+// };
+// let stdin = process.openStdin();
+// const fs = require('fs');
+// stdin.on('data', (input) => {
+//     const fileName = input.toString().trim();
+//
+//     let writeStreamFile = fs.createWriteStream(fileName);
+//     console.time("Time this");
+//
+//     for (let i = 0; i < 400000; i++) {
+//         writeStreamFile.write(randomWords());
+//     }
+//     console.timeEnd("Time this");
+// });
+
 const fs = require('fs');
-stdin.on('data', (input) => {
+let stdinReadFile = process.openStdin();
+const readAsStream = (file) => {
+    let readStreamFile = fs.createReadStream(file);
+    readStreamFile.on('data', (data) => {
+       console.log(data.toString());
+    });
+};
+
+stdinReadFile.on('data', (input) => {
     const fileName = input.toString().trim();
-
-    let writeStreamFile = fs.createWriteStream(fileName);
-    console.time("Time this");
-
-    for(let i = 0; i < 400000; i++){
-        writeStreamFile.write(randomWords());
-    }
-    console.timeEnd("Time this");
-
+    console.time('Time reading stream file');
+    readAsStream(fileName);
+    console.timeEnd('Time reading stream file');
 });
+
+// take in input for a file
+// readfile as stream and use time and timeEnd.
 
 
 
