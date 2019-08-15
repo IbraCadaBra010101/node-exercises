@@ -180,35 +180,71 @@
 //         }
 //     });
 // });
+
 //7* Skapa en texteditor!
 // Allt eftersom användaren
 // skriver så ska det sparas i en textfil.
 
+// let stdin = process.openStdin();
+// const fs = require('fs');
+//
+// stdin.on('data', (input) => {
+//      let text = input.toString().trim() + '\n';
+//     fs.appendFile('text.txt', text, (error) => {
+//         if (error) throw error;
+//         else{
+//             console.log('Saved: ' + text)
+//         }
+//     })
+// });
+//
+//
+
+
+// 8** Skriv ett interaktivt program som frågar användaren efter
+// ett filnamn. Programmet ska skapa en fil med det namnet och
+// fylla den med 2MB text. Använd funktionen Math.random()
+// för att skapa slumpvis bokstäver och mellanslag.
+// (Kan du göra så funktionen slumpar "ord" som är
+// lättare att läsa? I stället för t.ex. "srtghaua" ska
+// funktionen slumpa "sopati", dvs slumpa varannan
+// konsonant och varannan vokal.) Använd streams för
+// att skriva till filen och console.time()
+// och console.timeEnd() för att ta tiden
+// på hur lång tid det tar att skapa filen.
+// Komplettera med en funktion
+// som läser igenom en fil och skriver ut på konsolen hur lång tid det tog.
+
+//
+
+const lettersCon =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+const lettersVoc = ['a', 'e', 'i', 'u', 'y', 'o',];
+const randomWords = () => {
+    let wordLength = Math.floor(Math.random() * 2 + 1);
+    const words = [];
+        for (let i = 0; i <= wordLength; i++) {
+            let randomNumLettersCon = Math.floor(Math.random() * lettersCon.length);
+            let randomNumLettersVoc = Math.floor(Math.random() * lettersVoc.length);
+            words.push(lettersCon[randomNumLettersCon]);
+            words.push(lettersVoc[randomNumLettersVoc]);
+        }
+       return  words.join('') + ' ';
+};
 let stdin = process.openStdin();
 const fs = require('fs');
-
 stdin.on('data', (input) => {
-     let text = input.toString().trim() + '\n';
-    fs.appendFile('text.txt', text, (error) => {
-        if (error) throw error;
-        else{
-            console.log('Saved: ' + text)
-        }
-    })
+    const fileName = input.toString().trim();
+
+    let writeStreamFile = fs.createWriteStream(fileName);
+    console.time("Time this");
+
+    for(let i = 0; i < 400000; i++){
+        writeStreamFile.write(randomWords());
+    }
+    console.timeEnd("Time this");
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
