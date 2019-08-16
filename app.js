@@ -332,18 +332,63 @@
 // c. Om URL är något annat så ska du
 // skicka en annan sida, som visar felmeddelandet 404.
 //
+// const port = 3000;
+// const fs = require('fs');
+// const http = require('http');
+// const url = require('url');
+//
+// const server = http.createServer((req, res) => {
+//     let readingStream = fs.createReadStream('./html.txt');
+//     let writingStream = fs.createWriteStream('./shit.txt');
+//     let readStream = fs.createReadStream('./error.html');
+//     const urlDetails = url.parse(req.url);
+//     const {Transform} = require('stream');
+//
+//     const capitalize = new Transform({
+//         transform(chunk, encoding, callback) {
+//             let transformedChunk = chunk.toString().toUpperCase();
+//             this.push(transformedChunk);
+//             callback();
+//         }
+//     });
+//     readingStream.pipe(capitalize).pipe(writingStream);
+//     switch (urlDetails.pathname) {
+//         case '/':
+//             readingStream.pipe(res);
+//             break;
+//         case '/upper':
+//             fs.createReadStream('./upper Case html.txt').pipe(res);
+//             break;
+//         default:
+//             readStream.pipe(res);
+//
+//     }
+// });
+// server.listen(port);
+//
+//
+//
+
+// 5 Lägg till en route till webbservern. Om man skriver /counter
+// ska servern svara med en sträng som talar om hur många gånger
+// sidan har laddats.
+
 const port = 3000;
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+let counter = 1;
 
 const server = http.createServer((req, res) => {
+    console.log(counter);
+
     let readingStream = fs.createReadStream('./html.txt');
     let writingStream = fs.createWriteStream('./shit.txt');
     let readStream = fs.createReadStream('./error.html');
+    let writeStreamCounter = fs.createWriteStream('./counter.txt');
+    writeStreamCounter.write(counter.toString());
     const urlDetails = url.parse(req.url);
     const {Transform} = require('stream');
-
     const capitalize = new Transform({
         transform(chunk, encoding, callback) {
             let transformedChunk = chunk.toString().toUpperCase();
@@ -351,6 +396,7 @@ const server = http.createServer((req, res) => {
             callback();
         }
     });
+
     readingStream.pipe(capitalize).pipe(writingStream);
     switch (urlDetails.pathname) {
         case '/':
@@ -358,6 +404,11 @@ const server = http.createServer((req, res) => {
             break;
         case '/upper':
             fs.createReadStream('./upper Case html.txt').pipe(res);
+            break;
+        case '/counter':
+            counter++;
+            let read = fs.createReadStream('./counter.txt');
+            read.pipe(res);
             break;
         default:
             readStream.pipe(res);
@@ -367,33 +418,3 @@ const server = http.createServer((req, res) => {
 server.listen(port);
 
 
-//
-//
-// const port = 3000;
-// const fs = require('fs');
-// const http = require('http');
-// const url = require('url');
-//
-// const server = http.createServer((req, res) => {
-//     const urlDetails = url.parse(req.url);
-//     const { Transform } = require('stream');
-//     const capitalize = new Transform({
-//         transform(chunk, encoding, callback) {
-//             let transformedChunk = chunk.toString().toUpperCase();
-//             this.push(transformedChunk);
-//             callback();
-//         }
-//     });
-//     let readingStream = fs.createReadStream('./html.txt');
-//     let writingStream = fs.createWriteStream('./upper Case html.txt');
-//     readingStream.pipe(capitalize).pipe(writingStream);
-//     switch (urlDetails.pathname) {
-//         case '/':
-//             readingStream.pipe(res);
-//             break;
-//         case '/upper':
-//             writingStream.pipe(res);
-//             break;
-//     }
-// });
-// server.listen(port);
