@@ -336,12 +336,11 @@ const port = 3000;
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
-const path = require('path');
 
 const server = http.createServer((req, res) => {
     let readingStream = fs.createReadStream('./html.txt');
     let writingStream = fs.createWriteStream('./shit.txt');
-
+    let readStream = fs.createReadStream('./error.html');
     const urlDetails = url.parse(req.url);
     const {Transform} = require('stream');
 
@@ -359,6 +358,10 @@ const server = http.createServer((req, res) => {
             break;
         case '/upper':
             fs.createReadStream('./upper Case html.txt').pipe(res);
+            break;
+        default:
+            readStream.pipe(res);
+
     }
 });
 server.listen(port);
