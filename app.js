@@ -216,58 +216,181 @@
 // som läser igenom en fil och skriver ut på konsolen hur lång tid det tog.
 //
 
-const randomWords = () => {
-const lettersCon = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
-    "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// const randomWords = () => {
+// const lettersCon = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
+//     "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+//
+// const lettersVoc = ['a', 'e', 'i', 'u', 'y', 'o',];
+//
+//     let wordLength = Math.floor(Math.random() * 2 + 1);
+//     const words = [];
+//     for (let i = 0; i <= wordLength; i++) {
+//         let randomNumLettersCon = Math.floor(Math.random() * lettersCon.length);
+//         let randomNumLettersVoc = Math.floor(Math.random() * lettersVoc.length);
+//         words.push(lettersCon[randomNumLettersCon]);
+//         words.push(lettersVoc[randomNumLettersVoc]);
+//     }
+//     return words.join('') + ' ';
+// };
+// // skriv massa "ord" till filen
+// let stdin = process.openStdin();
+// const fs = require('fs');
+// stdin.on('data', (input) => {
+//      const fileName = input.toString().trim();
+//     let writeStreamFile = fs.createWriteStream(fileName);
+//     console.time("Time this");
+//
+//     for (let i = 0; i < 400000; i++) {
+//         writeStreamFile.write(randomWords());
+//     }
+//     console.timeEnd("Time this");
+// });
+// // läs orden.
+// let stdinReadFile = process.openStdin();
+// const readAsStream = (file) => {
+//     let readStreamFile = fs.createReadStream(file);
+//     readStreamFile.on('data', (data) => {
+//        console.log(data.toString());
+//     });
+// };
+//
+// stdinReadFile.on('data', (input) => {
+//     const fileName = input.toString().trim();
+//     console.time('Time reading stream file');
+//     readAsStream(fileName);
+//     console.timeEnd('Time reading stream file');
+// });
+//
+// // take in input for a file
+// // readfile as stream and use time and timeEnd.
+//
+//
 
-const lettersVoc = ['a', 'e', 'i', 'u', 'y', 'o',];
+// 1a Vad är ett protokoll och vad använder man det till?
+// protokoll används som ett sorts kontrakt mellan parter som vill överföra
+// information. Ett protokoll kan bestå av regler om vilket format informationen
+// ska överföras. Man använder protokoll för att skapa ett förutsägbart
+// sätt för parter att kommunicera information.
 
-    let wordLength = Math.floor(Math.random() * 2 + 1);
-    const words = [];
-    for (let i = 0; i <= wordLength; i++) {
-        let randomNumLettersCon = Math.floor(Math.random() * lettersCon.length);
-        let randomNumLettersVoc = Math.floor(Math.random() * lettersVoc.length);
-        words.push(lettersCon[randomNumLettersCon]);
-        words.push(lettersVoc[randomNumLettersVoc]);
-    }
-    return words.join('') + ' ';
-};
-// skriv massa "ord" till filen
-let stdin = process.openStdin();
+// 1b 1b Varför ska man ange statuskod?
+// Som del av HTTP- protokollet måste en web server svara på ett request med
+// en statuskod som består av 3 siffror. Statuskoden används för att kommunicera
+// med användaren över resultet/ res. 200 innebär success. 404 betyder not found
+// etc.
+
+//2xx Success
+// 2. Vad betyder statuskoderna:200 OK
+// Standard response for successful HTTP requests.
+//4xx Client errors
+//404 Not Found
+// The requested resource could not be found but may be
+// available in the future. Subsequent requests by the
+// client are permissible.
+//5xx Server errors
+// 500 Internal Server Error
+// A generic error message, given when an unexpected
+// condition was encountered and no more specific message is suitable
+
+// 3a Skapa ett nytt projekt (npm init).
+// Skriv en webbserver (den inbyggda HTTP-modulen i Node)
+// som skickar strängen "hello world" när en klient ansluter till den.
+// Öppna en ny terminal och kör webbservern på localhost.
+
+// const port = 3000;
+// const greeting = 'Hello World';
+// const http = require('http');
+// http.createServer((req, res) => {
+//     res.write(greeting);
+//     res.end();
+//
+// }).listen(port);
+
+// 3b Skapa en enkel textfil som innehåller HTML.
+// Uppdatera webbservern så att den i stället för en sträng
+// skickar HTML-filen som en ström.
+
+// const port = 3000;
+// const fs = require('fs');
+// const http = require('http');
+// const readFile = fs.createReadStream('./html.txt');
+// http.createServer((req, res) => {
+//     readFile.on('data', (data) => {
+//         const html = data.toString();
+//         res.write(html);
+//         res.end();
+//     });
+//
+// }).listen(port);
+
+// 4* Uppdatera webbserven så att den kan göra olika
+// saker beroende på vilken URL som efterfrågas.
+//a. Om URL är '/' så ska startsidan skickas.
+
+// b. Om URL är '/upper/' så ska startsidan skickas, men
+// alla bokstäver ska vara stora. (Tips: toUpperCase()
+// och duplex-ström.)
+// c. Om URL är något annat så ska du
+// skicka en annan sida, som visar felmeddelandet 404.
+//
+const port = 3000;
 const fs = require('fs');
-stdin.on('data', (input) => {
-     const fileName = input.toString().trim();
-    let writeStreamFile = fs.createWriteStream(fileName);
-    console.time("Time this");
+const http = require('http');
+const url = require('url');
+const path = require('path');
 
-    for (let i = 0; i < 400000; i++) {
-        writeStreamFile.write(randomWords());
-    }
-    console.timeEnd("Time this");
-});
-// läs orden.
-let stdinReadFile = process.openStdin();
-const readAsStream = (file) => {
-    let readStreamFile = fs.createReadStream(file);
-    readStreamFile.on('data', (data) => {
-       console.log(data.toString());
+const server = http.createServer((req, res) => {
+    let readingStream = fs.createReadStream('./html.txt');
+    let writingStream = fs.createWriteStream('./shit.txt');
+
+    const urlDetails = url.parse(req.url);
+    const {Transform} = require('stream');
+
+    const capitalize = new Transform({
+        transform(chunk, encoding, callback) {
+            let transformedChunk = chunk.toString().toUpperCase();
+            this.push(transformedChunk);
+            callback();
+        }
     });
-};
-
-stdinReadFile.on('data', (input) => {
-    const fileName = input.toString().trim();
-    console.time('Time reading stream file');
-    readAsStream(fileName);
-    console.timeEnd('Time reading stream file');
+    readingStream.pipe(capitalize).pipe(writingStream);
+    switch (urlDetails.pathname) {
+        case '/':
+            readingStream.pipe(res);
+            break;
+        case '/upper':
+            fs.createReadStream('./upper Case html.txt').pipe(res);
+    }
 });
-
-// take in input for a file
-// readfile as stream and use time and timeEnd.
+server.listen(port);
 
 
-
-
-
-
-
-
+//
+//
+// const port = 3000;
+// const fs = require('fs');
+// const http = require('http');
+// const url = require('url');
+//
+// const server = http.createServer((req, res) => {
+//     const urlDetails = url.parse(req.url);
+//     const { Transform } = require('stream');
+//     const capitalize = new Transform({
+//         transform(chunk, encoding, callback) {
+//             let transformedChunk = chunk.toString().toUpperCase();
+//             this.push(transformedChunk);
+//             callback();
+//         }
+//     });
+//     let readingStream = fs.createReadStream('./html.txt');
+//     let writingStream = fs.createWriteStream('./upper Case html.txt');
+//     readingStream.pipe(capitalize).pipe(writingStream);
+//     switch (urlDetails.pathname) {
+//         case '/':
+//             readingStream.pipe(res);
+//             break;
+//         case '/upper':
+//             writingStream.pipe(res);
+//             break;
+//     }
+// });
+// server.listen(port);
