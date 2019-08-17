@@ -373,48 +373,91 @@
 // ska servern svara med en sträng som talar om hur många gånger
 // sidan har laddats.
 
-const port = 3000;
-const fs = require('fs');
-const http = require('http');
-const url = require('url');
-let counter = 1;
+// const port = 3000;
+// const fs = require('fs');
+// const http = require('http');
+// const url = require('url');
+// let counter = 1;
+//
+// const server = http.createServer((req, res) => {
+//     console.log(counter);
+//
+//     let readingStream = fs.createReadStream('./html.txt');
+//     let writingStream = fs.createWriteStream('./shit.txt');
+//     let readStream = fs.createReadStream('./error.html');
+//     let writeStreamCounter = fs.createWriteStream('./counter.txt');
+//     writeStreamCounter.write(counter.toString());
+//     const urlDetails = url.parse(req.url);
+//     const {Transform} = require('stream');
+//     const capitalize = new Transform({
+//         transform(chunk, encoding, callback) {
+//             let transformedChunk = chunk.toString().toUpperCase();
+//             this.push(transformedChunk);
+//             callback();
+//         }
+//     });
+//
+//     readingStream.pipe(capitalize).pipe(writingStream);
+//     switch (urlDetails.pathname) {
+//         case '/':
+//             readingStream.pipe(res);
+//             break;
+//         case '/upper':
+//             fs.createReadStream('./upper Case html.txt').pipe(res);
+//             break;
+//         case '/counter':
+//             counter++;
+//             let read = fs.createReadStream('./counter.txt');
+//             read.pipe(res);
+//             break;
+//         default:
+//             readStream.pipe(res);
+//
+//     }
+// });
+// server.listen(port);
+//
+// 6 Skriv ett nytt Node-program som skickar ett request till webbservern
+// du gjort i tidigare uppgifter. Programmet ska till exempel
+// skriva ut vilken statuskod servern svarar med.
+// const http = require('http');
+// const port = 3000;
+// const url = require('url');
+// const server = http.createServer((req, res) => {
+//     const urlPath = url.parse(req.url);
+//     if (urlPath.pathname === '/') {
+//         res.writeHead(200, {'Content-Type': 'text/plain'});
+//         res.write('200');
+//         res.end();
+//     } else {
+//         res.writeHead(404, {'Content-Type': 'text/plain'});
+//         res.write('404');
+//         res.end();
+//     }
+// });
+// server.listen(port, () => {
+//     console.log(`Listening to ${port}`)
+// });
+//
+//
+//
 
-const server = http.createServer((req, res) => {
-    console.log(counter);
 
-    let readingStream = fs.createReadStream('./html.txt');
-    let writingStream = fs.createWriteStream('./shit.txt');
-    let readStream = fs.createReadStream('./error.html');
-    let writeStreamCounter = fs.createWriteStream('./counter.txt');
-    writeStreamCounter.write(counter.toString());
-    const urlDetails = url.parse(req.url);
-    const {Transform} = require('stream');
-    const capitalize = new Transform({
-        transform(chunk, encoding, callback) {
-            let transformedChunk = chunk.toString().toUpperCase();
-            this.push(transformedChunk);
-            callback();
-        }
-    });
 
-    readingStream.pipe(capitalize).pipe(writingStream);
-    switch (urlDetails.pathname) {
-        case '/':
-            readingStream.pipe(res);
-            break;
-        case '/upper':
-            fs.createReadStream('./upper Case html.txt').pipe(res);
-            break;
-        case '/counter':
-            counter++;
-            let read = fs.createReadStream('./counter.txt');
-            read.pipe(res);
-            break;
-        default:
-            readStream.pipe(res);
 
-    }
-});
-server.listen(port);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
