@@ -18,11 +18,23 @@ app.get('/getOneAnimalsDiet', (req, res) => {
     animalsJS.findWhatDoesThisAnimalEat(animalName, 'getOneAnimalsDiet');
     res.sendFile(path.join(__dirname + '/data.json'), 'utf-8');
 });
+
+
 app.get('/getOneAnimalsPopulation', (req, res) => {
+    console.log(req.params);
     const animalName = (req.query.name);
     animalsJS.findWhatDoesThisAnimalEat(animalName, 'getOneAnimalsPopulation');
     res.sendFile(path.join(__dirname + '/data.json'), 'utf-8');
 });
+
+app.get('/getAnimalNumber/:id', (req, res) => {
+    const animalID = Number(req.params.id);
+    console.log(animalID);
+    animalsJS.findWhatDoesThisAnimalEat(animalID, 'getAnimalNumber');
+    res.sendFile(path.join(__dirname + '/data.json'), 'utf-8');
+});
+
+
 app.listen(port, () => {
     console.log(`Listening to port ${port}!`)
 });

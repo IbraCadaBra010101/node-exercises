@@ -7,26 +7,29 @@
 
 const fs = require('fs');
 
-let findWhatDoesThisAnimalEat = (animalName, query) => {
+let findWhatDoesThisAnimalEat = (animalInfo, query) => {
     const animals = [{
         animalName: 'Lion',
         region: 'India & Africa',
         diet: 'Meat',
         population: 4030294,
+        id: 1,
     }, {
         animalName: 'Giraffe',
         region: 'Africa',
         diet: 'fruit based',
         population: 6738485,
+        id: 2,
     }, {
         animalName: 'Cow',
         region: 'All over the world',
         diet: 'just diet coke',
         population: 45000040,
+        id: 3,
     }];
     if (query === 'getOneAnimalsDiet') {
         animals.map(animal => {
-            if (animal.animalName.toLowerCase() === animalName.toLowerCase()) {
+            if (animal.animalName.toLowerCase() === animalInfo.toLowerCase()) {
                 const thisAnimalEats = `${animal.animalName} eats ${animal.diet} diet`;
                 fs.writeFileSync('./data.json', JSON.stringify(thisAnimalEats), (error) => {
                     if (error) throw error;
@@ -37,7 +40,7 @@ let findWhatDoesThisAnimalEat = (animalName, query) => {
     }
     if (query === 'getOneAnimalsPopulation') {
         animals.map(animal => {
-            if (animal.animalName.toLowerCase() === animalName.toLowerCase()) {
+            if (animal.animalName.toLowerCase() === animalInfo.toLowerCase()) {
                 const thisAnimalsPopulation = `The ${animal.animalName} pop. consists ${animal.population} individuals`;
                 fs.writeFileSync('./data.json', JSON.stringify(thisAnimalsPopulation), (error) => {
                     if (error) throw error;
@@ -46,44 +49,19 @@ let findWhatDoesThisAnimalEat = (animalName, query) => {
             }
         });
     }
+    if (query === 'getAnimalNumber') {
+        animals.map(animal => {
+            if (animal.id === animalInfo) {
+                fs.writeFileSync('./data.json', JSON.stringify(animal), (error) => {
+                    if (error) throw error;
+                    console.log('data written to JSON file: ');
+                });
+            }
+        });
+    }
 };
-
-// findWhatDoesThisAnimalEat('lion', 'getOneAnimalsDiet');
-// get region, diet and legs for each animal.
-// querystring diet = lion
 
 
 module.exports = {
     findWhatDoesThisAnimalEat: findWhatDoesThisAnimalEat
 };
-
-
-// console.log(request.includes(animal.animalName));
-// if(request.includes(animal.animalName)){
-//     console.log(animal.animalName);
-// }
-
-// animals.forEach(animal => {
-//     if (request === 'allAnimalObjects') {
-//          fs.writeFileSync('./data.json', JSON.stringify(animal), (error) => {
-//             if (error) throw error;
-//             console.log('data written')
-//         });
-//     }
-//     console.log(animals);
-//
-//     if (request === 'allAnimalNames') {
-//         console.log(animal.animalName, 'returning all names');
-//         return animal.animalName;
-//     }
-//
-//     if (request.includes('getNumberOfLegs?animal')) {
-//         if (animal.animalName === 'Lion') {
-//             fs.writeFile('./data.json', JSON.stringify(animal.legs), (error) => {
-//                 if (error) throw error;
-//                 console.log('data written')
-//             });
-//         }
-//     }
-// })
-
