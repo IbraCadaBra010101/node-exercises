@@ -2,18 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ce22c70-d7bc-487d-aba9-66e4bf18e79f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/animals_api/animals.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animals_api/data.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/animals_api/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/modules/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bringThemAnimalsToClient/fetchDataAnimals.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bringThemAnimalsToClient/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/animals_api/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/animals_api/server.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="node-exercises" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -88,7 +89,7 @@
       <workItem from="1565953853303" duration="22588000" />
       <workItem from="1566034484118" duration="23045000" />
       <workItem from="1566128893015" duration="1698000" />
-      <workItem from="1566132210676" duration="6455000" />
+      <workItem from="1566132210676" duration="14141000" />
     </task>
     <servers />
   </component>

@@ -28,6 +28,7 @@ app.get('/getOneAnimalsPopulation', (req, res) => {
 });
 
 app.get('/getAnimalNumber/:id', (req, res) => {
+    res.header("Access-Control-Allow-Origin", "*");
     const animalID = Number(req.params.id);
     console.log(animalID);
     animalsJS.findWhatDoesThisAnimalEat(animalID, 'getAnimalNumber');
