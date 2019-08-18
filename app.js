@@ -443,11 +443,11 @@
 //
 
 
-const port = 3000;
-const fs = require('fs');
-const http = require('http');
-const url = require('url');
-let counter = 1;
+// const port = 3000;
+// const fs = require('fs');
+// const http = require('http');
+// const url = require('url');
+// let counter = 1;
 
 // 7* Password cracker! Lägg till en route till webbservern. Om man skriver /login?user=name&password=password så ska servern
 // antingen svara med att man är inloggad, eller att det var fel lösenord. Servern ska slumpa ett "lösenord" som ska vara ett
@@ -455,66 +455,109 @@ let counter = 1;
 // tagit reda på ett användarnamn med social engineering, så programmet har redan ett giltigt användarnamn. Bara lösenordet är okänt.)
 // Så länge servern svarar med att det var fel lösenord ska Hacker-programmet försöka igen. När det lyckas ska det skriva ut lösenordet
 // på konsolen. (Tips: lite roligare utskrifter med https://www.npmjs.com/package/colors)
-const server = http.createServer((req, res) => {
-    let readingStream = fs.createReadStream('./html.txt');
-    let writingStream = fs.createWriteStream('./shit.txt');
-    let readStream = fs.createReadStream('./error.html');
-    let writeStreamCounter = fs.createWriteStream('./counter.txt');
-    writeStreamCounter.write(counter.toString());
-    const urlDetails = url.parse(req.url);
-    const {Transform} = require('stream');
-    const capitalize = new Transform({
-        transform(chunk, encoding, callback) {
-            let transformedChunk = chunk.toString().toUpperCase();
-            this.push(transformedChunk);
-            callback();
-        }
-    });
-    let randomPassWord = Math.floor(Math.random() * 10 + 1);
-    readingStream.pipe(capitalize).pipe(writingStream);
-    switch (urlDetails.pathname) {
-        case '/':
-            readingStream.pipe(res);
-            break;
-        case '/upper':
-            fs.createReadStream('./upper Case html.txt').pipe(res);
-            break;
-        case '/counter':
-            counter++;
-            let read = fs.createReadStream('./counter.txt');
-            read.pipe(res);
-            break;
-        case '/login':
-            if (req.url.includes(randomPassWord.toString())) {
-                res.writeHead(200, {'Content-Type': 'text/plain'});
-                res.write('logged in');
-                res.end();
-            } else {
-                res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.write('wrong password');
-                res.end();
-            }
-            break;
-        default:
-            readStream.pipe(res);
+// const server = http.createServer((req, res) => {
+//     let readingStream = fs.createReadStream('./html.txt');
+//     let writingStream = fs.createWriteStream('./shit.txt');
+//     let readStream = fs.createReadStream('./error.html');
+//     let writeStreamCounter = fs.createWriteStream('./counter.txt');
+//     writeStreamCounter.write(counter.toString());
+//     const urlDetails = url.parse(req.url);
+//     const {Transform} = require('stream');
+//     const capitalize = new Transform({
+//         transform(chunk, encoding, callback) {
+//             let transformedChunk = chunk.toString().toUpperCase();
+//             this.push(transformedChunk);
+//             callback();
+//         }
+//     });
+//     let randomPassWord = Math.floor(Math.random() * 10 + 1);
+//     readingStream.pipe(capitalize).pipe(writingStream);
+//     switch (urlDetails.pathname) {
+//         case '/':
+//             readingStream.pipe(res);
+//             break;
+//         case '/upper':
+//             fs.createReadStream('./upper Case html.txt').pipe(res);
+//             break;
+//         case '/counter':
+//             counter++;
+//             let read = fs.createReadStream('./counter.txt');
+//             read.pipe(res);
+//             break;
+//         case '/login':
+//             if (req.url.includes(randomPassWord.toString())) {
+//                 res.writeHead(200, {'Content-Type': 'text/plain'});
+//                 res.write('logged in');
+//                 res.end();
+//             } else {
+//                 res.writeHead(404, {'Content-Type': 'text/plain'});
+//                 res.write('wrong password');
+//                 res.end();
+//             }
+//             break;
+//         default:
+//             readStream.pipe(res);
+//
+//     }
+// });
+// // retry until successcode = 200 in recursive function.
+// const randomizePassword = Math.floor(Math.random() * 10 + 1);
+// const loginUrl = `http://localhost:3000/login?user=jim&password=${randomizePassword}`;
+// let countRetries = 0;
+// const retry = (statusCode) => {
+//     http.get(loginUrl, (req, res) => {
+//         if (req.statusCode === statusCode) {
+//             return console.log('Success: broke password after', countRetries + 1, 'attempts!: password =', randomizePassword);
+//         } else {
+//             ++countRetries;
+//             console.log('Attempt nr: ', countRetries, ' failed while trying to break password');
+//             return retry(200);
+//         }
+//     });
+// };
+// retry(200);
+//
+// server.listen(port);
 
-    }
-});
-// retry until successcode = 200 in recursive function.
-const randomizePassword = Math.floor(Math.random() * 10 + 1);
-const loginUrl = `http://localhost:3000/login?user=jim&password=${randomizePassword}`;
-let countRetries = 0;
-const retry = (statusCode) => {
-    http.get(loginUrl, (req, res) => {
-        if (req.statusCode === statusCode) {
-            return console.log('Success: broke password after', countRetries + 1, 'attempts!: password =', randomizePassword);
-        } else {
-            ++countRetries;
-            console.log('Attempt nr: ', countRetries, ' failed while trying to break password');
-            return retry(200);
-        }
-    });
-};
-retry(200);
+// 1 Skapa ett nytt projekt och installera npm-paketet Express.
+// Skriv en fil server.js som startar en webbserver.
+// När servern tar emot ett request ska den svara med ett lämpligt
+// response som till exempel "The server is alive!".
 
-server.listen(port);
+// const express = require('express');
+// const app = express();
+// const port = 3000;
+// const message = 'The server is alive!';
+// app.get('/', (req, res) => {
+//    res.send(message);
+// });
+// app.listen(port, () => {
+//     console.log(`Listening to port ${port}!`)
+// });
+
+
+// 2a Skapa filer med namnen server.js och animals.js. Animals ska exportera en funktion getAnimals,
+// som man kan anropa för att få en lista med information om djur. Använd module.exports för att exportera
+// funktionen. Server-filen ska starta en webbserver, som har en route för varje funktion.
+// Exempel: /api/allAnimalNames, /api/getNumberOfLegs?animal=fox. Användaren ska med hjälp av querystring
+// få ut information om djuren i listan.
+
+//see animals_api directory
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
